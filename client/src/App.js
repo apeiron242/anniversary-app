@@ -8,9 +8,7 @@ import { useEffect, useState } from "react";
 import Axios from "axios";
 
 function App() {
-  const [url, seturl] = useState(
-    "https://anniversary-app-server.herokuapp.com"
-  );
+  const [url, seturl] = useState("");
   const [isLogin, setIsLogin] = useState(false);
   const [user, setUser] = useState();
 
