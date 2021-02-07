@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Result from "./Result";
 import Axios from "axios";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
-function Main({ url, user }) {
+function Main({ url, user, isLogin }) {
   const [title, setTitle] = useState();
   const [date, setDate] = useState();
   const [data, setData] = useState();
@@ -13,21 +12,30 @@ function Main({ url, user }) {
   const format = "YYYY-MM-DD";
 
   const submitDate = () => {
-    Axios.post(`${url}/post`, {
-      title,
-      date,
-      username: user,
-    }).then((res) => {
-      setData([...data, { _id: res.data._id, title, date }]);
-    });
+    if (!isLogin) {
+      alert("로그인 상태일 때만 저장됩니다");
+      setData([...data, { title, date }]);
+    } else {
+      Axios.post(`${url}/post`, {
+        title,
+        date,
+        username: user,
+      }).then((res) => {
+        setData([...data, { _id: res.data._id, title, date }]);
+      });
+    }
   };
 
   const deleteDate = (id, title) => {
     let result = window.confirm(`${title} 이벤트를 삭제하시겠습니까?`);
 
     if (result) {
-      Axios.delete(`${url}/delete/${id}`);
-      setData(data.filter((val) => val._id !== id));
+      if (!isLogin) {
+        setData(data.filter((val) => val._id !== id));
+      } else {
+        Axios.delete(`${url}/delete/${id}`);
+        setData(data.filter((val) => val._id !== id));
+      }
     }
   };
 
@@ -38,7 +46,7 @@ function Main({ url, user }) {
     setNow(moment().format(format));
   }, [user]);
   return (
-    <div className="flex flex-col items-center  h-screen">
+    <div className="flex flex-col items-center h-screen bg-indigo-50">
       <h3 className="m-2 mt-5 text-lg">이벤트의 시작일을 입력해주세요</h3>
       <input
         type="text"
@@ -60,14 +68,17 @@ function Main({ url, user }) {
       {data
         ? data.map((elem) => {
             return (
-              <div className="flex items-center border-2 border-gray-600 my-1 w-10/12">
+              <div
+                className="flex items-center border-2 border-green-400 rounded-lg my-2 w-10/12 sm:w-6/12 bg-green-400"
+                key={elem._id}
+              >
                 <div className="w-1/2 flex justify-center items-center">
                   <Link
                     to={`/posts?title=${elem.title}&date=${elem.date}&id=${elem._id}`}
                   >
                     <div className="flex flex-row justify-center items-center">
-                      <h3 className="mx-2 text-purple-600">{elem.title}</h3>
-                      <h3 className="mx-2 text-blue-500">
+                      <h3 className="mx-2 text-purple-700">{elem.title}</h3>
+                      <h3 className="mx-2 text-blue-700">
                         D-
                         {moment.duration(moment(elem.date).diff(now)).asDays() *
                           -1 +
@@ -78,11 +89,11 @@ function Main({ url, user }) {
                 </div>
 
                 <div className="flex flex-row justify-center items-center w-1/2">
-                  <button className="bg-blue-600 text-white px-4 py-1 m-2 text-sm">
+                  {/* <button className="bg-blue-600 text-white px-4 py-1 m-2 text-sm">
                     수정
-                  </button>
+                  </button> */}
                   <button
-                    className="bg-red-600 text-white px-4 py-1 m-2 text-sm"
+                    className="bg-red-400 text-white px-4 py-1 m-2 text-sm"
                     onClick={() => {
                       deleteDate(elem._id, elem.title);
                     }}

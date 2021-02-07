@@ -14,7 +14,9 @@ function Header({ isLogin, user, url }) {
   return (
     <div className="border-b-2 pt-1">
       <Link to="/">
-        <h1 className="text-center p-1 text-2xl">기념일 계산기</h1>
+        <h1 className="text-center p-1 text-2xl text-blue-700">
+          기념일 계산기
+        </h1>
       </Link>
       {isLogin ? (
         <>

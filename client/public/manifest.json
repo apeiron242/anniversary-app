@@ -1,19 +1,19 @@
 {
-  "short_name": "Anniversary App",
-  "name": "Anniversary App",
+  "short_name": "Anniversary D-Day",
+  "name": "Anniversary D-Day",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "Icon.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "Icon.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "Icon.png",
       "type": "image/png",
       "sizes": "512x512"
     }

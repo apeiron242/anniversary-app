@@ -24,7 +24,7 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="font-sans">
       <Router>
         <Switch>
           <Route
@@ -33,7 +33,7 @@ function App() {
             render={(props) => (
               <>
                 <Header isLogin={isLogin} user={user} url={url} />
-                <Main url={url} user={user} />
+                <Main url={url} user={user} isLogin={isLogin} />
               </>
             )}
           />
