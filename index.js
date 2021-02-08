@@ -12,18 +12,16 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const path = require("path");
 const url = "http://localhost:3000";
 
+require("dotenv").config();
+
 app.use(express.static("client/build"));
 
-mongoose.connect(
-  "mongodb+srv://apeiron242:1638@cluster0.ku7is.mongodb.net/anniversary-app?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-  }
-);
+mongoose.connect(process.env.URL, {
+  useNewUrlParser: true,
+});
 
 const store = new MongoDBStore({
-  uri:
-    "mongodb+srv://apeiron242:1638@cluster0.ku7is.mongodb.net/anniversary-app?retryWrites=true&w=majority",
+  uri: process.env.URL,
   collection: "sessions",
 });
 
