@@ -7,20 +7,23 @@ function Posts({}) {
   const [date, setDate] = useState();
   const [now, setNow] = useState();
   const [dDay, setDDay] = useState();
+  const [ddayCalc, setDdayCalc] = useState("D-day 계산");
   const dDayInput = useRef(null);
   const dDayOutput = useRef(null);
 
   const calcDate = moment(date);
   const format = "YYYY-MM-DD";
   const cssForContent =
-    "m-2 p-1 border-2 border-gray-300 rounded-lg w-5/6 h-11 text-center text-blue-800 bg-green-400 text-lg sm:w-6/12";
+    "m-2 p-1 border-2 border-gray-300 rounded-lg w-5/6 h-11 text-center text-blue-600 bg-green-400 text-lg sm:w-6/12";
 
   const calcDDay = () => {
     if (dDayInput.current.className === "hidden") {
       dDayInput.current.className = "block";
+      setDdayCalc("접기");
     } else if (dDayInput.current.className === "block") {
       dDayInput.current.className = "hidden";
       dDayOutput.current.className = "hidden";
+      setDdayCalc("D-day 계산");
     }
   };
 
@@ -33,8 +36,8 @@ function Posts({}) {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center bg-indigo-50">
-      <div className="flex flex-col justify-center items-center w-5/6 sm:w-6/12 bg-purple-200 m-2">
+    <div className="flex flex-col justify-center items-center bg-gray-100">
+      <div className="flex flex-col justify-center items-center w-5/6 sm:w-6/12 bg-red-50 m-2 ">
         <div className="flex flex-row justify-center items-center m-2">
           <h3 className="text-2xl mx-5 text-purple-600">{title}</h3>
           <h3 className="text-xl text-blue-500 mx-4">
@@ -50,14 +53,13 @@ function Posts({}) {
         <div className="flex flex-row justify-center items-center">
           <button
             onClick={calcDDay}
-            className="mx-2 bg-blue-400 text-gray-100 px-2 py-1"
+            className="mx-2 bg-blue-600 text-gray-100 px-3 py-1"
           >
-            D-day 계산
+            {ddayCalc}
           </button>
           <div className="hidden" ref={dDayInput}>
             <input
               type="date"
-              placeholder="D-Day 계산"
               onChange={(e) => {
                 setDDay(e.target.value);
                 dDayOutput.current.className = "block";

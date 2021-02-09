@@ -46,8 +46,8 @@ function Main({ url, user, isLogin }) {
     setNow(moment().format(format));
   }, [user]);
   return (
-    <div className="flex flex-col items-center h-screen bg-indigo-50">
-      <h3 className="m-2 mt-5 text-lg">이벤트의 시작일을 입력해주세요</h3>
+    <div className="flex flex-col items-center h-screen bg-gray-100">
+      <h3 className="m-2 mt-5 text-lg text-gray-700">D-day 입력</h3>
       <input
         type="text"
         className="border-2 border-gray-400 rounded-sm p-1 m-2"
@@ -72,13 +72,15 @@ function Main({ url, user, isLogin }) {
                 className="flex items-center border-2 border-green-400 rounded-lg my-2 w-10/12 sm:w-6/12 bg-green-400"
                 key={elem._id}
               >
-                <div className="w-1/2 flex justify-center items-center">
+                <div className="w-2/3 flex justify-center items-center">
                   <Link
                     to={`/posts?title=${elem.title}&date=${elem.date}&id=${elem._id}`}
                   >
                     <div className="flex flex-row justify-center items-center">
-                      <h3 className="mx-2 text-purple-700">{elem.title}</h3>
-                      <h3 className="mx-2 text-blue-700">
+                      <h3 className="mx-2 text-purple-800 text-lg">
+                        {elem.title}
+                      </h3>
+                      <h3 className="mx-2 text-blue-600 text-lg">
                         D-
                         {moment.duration(moment(elem.date).diff(now)).asDays() *
                           -1 +
@@ -87,8 +89,7 @@ function Main({ url, user, isLogin }) {
                     </div>
                   </Link>
                 </div>
-
-                <div className="flex flex-row justify-center items-center w-1/2">
+                <div className="flex flex-row justify-center items-center w-1/3">
                   {/* <button className="bg-blue-600 text-white px-4 py-1 m-2 text-sm">
                     수정
                   </button> */}
