@@ -54,10 +54,8 @@ app.use(
 
 app.get("/login", (req, res) => {
   if (req.session.user) {
-    console.log(req.session.user);
     res.send({ isLogin: true, user: req.session.user });
   } else {
-    console.log("req.session.user doesn't exist");
     res.send("no");
   }
 });
