@@ -1,5 +1,5 @@
 import "./assets/main.css";
-import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Login from "./components/Login";
