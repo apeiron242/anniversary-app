@@ -6,7 +6,7 @@ import moment from "moment";
 function Main({ url, user, isLogin }) {
   const [title, setTitle] = useState();
   const [date, setDate] = useState();
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [now, setNow] = useState();
 
   const format = "YYYY-MM-DD";
@@ -14,14 +14,22 @@ function Main({ url, user, isLogin }) {
   const submitDate = () => {
     if (!isLogin) {
       alert("로그인 상태일 때만 저장됩니다");
-      setData([...data, { title, date }]);
+      if (data) {
+        setData([...data, { title, date }]);
+      } else {
+        setData({ title, date });
+      }
     } else {
       Axios.post(`${url}/post`, {
         title,
         date,
         username: user,
       }).then((res) => {
-        setData([...data, { _id: res.data._id, title, date }]);
+        if (data) {
+          setData([...data, { _id: res.data._id, title, date }]);
+        } else {
+          setData({ _id: res.data._id, title, date });
+        }
       });
     }
   };
@@ -58,7 +66,7 @@ function Main({ url, user, isLogin }) {
         type="date"
         className="border-2 border-gray-400 rounded-sm p-1 m-2"
         onChange={(e) => setDate(e.target.value)}
-        placeholder="YYYY-MM-DD"
+        placeholder={moment().format(format)}
       />
       <button
         className="bg-blue-600 text-white px-4 py-1 m-2"
