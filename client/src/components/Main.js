@@ -58,6 +58,7 @@ function Main({ url, user, isLogin }) {
         type="date"
         className="border-2 border-gray-400 rounded-sm p-1 m-2"
         onChange={(e) => setDate(e.target.value)}
+        placeholder="YYYY-MM-DD"
       />
       <button
         className="bg-blue-600 text-white px-4 py-1 m-2"
